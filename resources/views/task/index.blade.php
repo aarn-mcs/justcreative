@@ -51,11 +51,11 @@
         <form method="POST" action="{{ route('addTask') }}">
           <div class="form-group">
             <label for="exampleInputEmail1">Nombre tarea</label>
-            <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Email" name="taskName">
+            <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Email" name="taskName" required="">
           </div>
           <div class="form-group">
             <label for="exampleInputEmail2">Descripción</label>
-            <input type="text" class="form-control" id="exampleInputEmail2" placeholder="Email" name="descripcion">
+            <input type="text" class="form-control" id="exampleInputEmail2" placeholder="Email" name="descripcion" required="">
           </div>
           <div class="form-group">
             <label for="exampleInputPassword1">Usuario</label>
