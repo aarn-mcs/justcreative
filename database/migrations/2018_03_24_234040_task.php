@@ -19,6 +19,8 @@ class Task extends Migration
             $table->string('status');
             $table->string('name');
             $table->string('description');
+            $table->string('endTask');
+            $table->string('hours');
             $table->timestamps();
         });
     }

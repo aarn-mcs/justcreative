@@ -18,6 +18,8 @@
                                 <th>User</th> 
                                 <th>Estado</th>
                                 <th>Descripción</th> 
+                                <th>Fecha de fincalizacón</th>
+                                <th>Horas</th>  
                                 <th>Acciones</th> 
                             </tr> 
                         </thead> 
@@ -29,7 +31,16 @@
                                 <td>{{$task->user->name}}</td> 
                                 <td>{{$task->status}}</td> 
                                 <td>{{$task->description}}
-                                <td><a type="button"  class="btn btn-primary" href="{{route('change', $task->id)}}">Cambio</button></td> 
+                                <td>{{$task->endTask}}</td> 
+                                <td>{{$task->hours}}
+                                <td>
+                                @if($task->status == "pendiente")  
+                                  <a type="button"  class="btn btn-primary" href="{{route('change', $task->id)}}">Comenzar</a>
+                                @endif  
+                                @if($task->status == "en proceso")
+                                  <a type="button"  class="btn btn-primary" href="{{route('endTask', $task->id)}}">Terminar</a>
+                                @endif  
+                                </td> 
                             </tr> 
                         @endforeach
                         </tbody> 

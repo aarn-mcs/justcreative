@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use App\Task;
 use App\User;
+use DateTime;
 
 class TaskController extends Controller
 {
@@ -37,9 +38,12 @@ class TaskController extends Controller
     {
         Task::create([
             'userId' => Input::get('userId'),
-            'status' => 'active',
+            'status' => 'pendiente',
             'name' => Input::get('taskName'),
-            'description' => Input::get('descripcion') 
+            'description' => Input::get('descripcion'),
+            'endTask' => '--',
+            'hours' => '--'
+
         ]);
         return redirect()->action('TaskController@index');
     }
@@ -47,11 +51,22 @@ class TaskController extends Controller
     public function change ($id)
     {
         $task = Task::find($id);
-        if($task->status == "active")
-            $task->status = "deactive";
-        else
-            $task->status = "active";
+        $task->status = "en proceso";
         $task->save();           
+        return redirect()->action('TaskController@index');
+    }
+
+    public function endTask($id)
+    {
+        $task = Task::find($id);
+        $fecha1 = new DateTime($task->created_at);//fecha inicial
+        $fecha2 = new DateTime();//fecha de cierre
+
+        $diff = $fecha2->diff($fecha1);
+        $task->endTask = $fecha2;
+        $task->hours = $diff->format('%a días and %h horas');
+        $task->status = "terminada";
+        $task->save(); 
         return redirect()->action('TaskController@index');
     }
 }
